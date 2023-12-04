@@ -2,7 +2,8 @@
 import React from 'react'
 import  './login.css'
 import Form from './form';
-function LoginPage() {
+ function LoginPage() {
+    
   return (
     <Form />
   )

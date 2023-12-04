@@ -1,6 +1,7 @@
 'use client'
 import React,{FormEvent} from 'react'
 import './register.css'
+import { useRouter } from 'next/router'
 function Form() {
     const  handleRegister=async (e:FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
@@ -10,7 +11,8 @@ function Form() {
             body:JSON.stringify({
                 email:formdata.get('email'),
                 password:formdata.get('password'),
-            })
+            }),
+            
         });
         console.log({response})
       }

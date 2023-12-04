@@ -11,8 +11,7 @@ export  async function POST(request:Request){
         const response= await sql`
         INSERT INTO users (email,password) VALUES (${email},${hashedPassword})`;
         console.log(response)
-
-
+        alert(`you have been registered user : ${email}`)
     } catch (error) {
         console.log(error)
     }

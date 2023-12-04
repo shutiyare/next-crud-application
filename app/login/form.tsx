@@ -6,13 +6,13 @@ import NextAuth from 'next-auth/next'
 import { useRouter } from 'next/navigation'
 function Form() {
     const router=useRouter();
-    const  handleRegister=async (e:FormEvent<HTMLFormElement>)=>{
+    const  handleLogin=async (e:FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         const formdata=new FormData(e.currentTarget)
         const response=await signIn('credentials',{
             email:formdata.get('email'),
             password:formdata.get('password'),
-            redirect:false
+            // redirect:false
         });
         if(!response?.error){
             router.push('/');
@@ -22,7 +22,7 @@ function Form() {
       }
   return (
     <div className='container'>
-        <form  className='login-form' onSubmit={handleRegister}>
+        <form  className='login-form' onSubmit={handleLogin}>
         <h1>Login</h1>
             <label >Username:</label>
             <input  type="text" id="username" name="email" placeholder="Enter your username" required />

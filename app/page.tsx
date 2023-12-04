@@ -3,19 +3,10 @@ import Link from "next/link";
 import Logout from "./logout";
 
 export default async function Page() {
-  const session=await getServerSession();
+  // const session=await getServerSession();
 
   return <>
   <h1>Welcome to home page</h1>
-  <nav>
-          {
-            !!session &&
-            <Logout />
-          }
-          {
-            !session &&
-            <Link href='/login'>login</Link>
-          }
-        </nav>
+
   </>
 }

@@ -3,12 +3,15 @@ import { compare } from "bcrypt";
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider  from "next-auth/providers/credentials";
-import { use } from "react";
 
-const authoptions:NextAuthOptions =NextAuth({
+ export const OPTIONS =NextAuth({
     session:{
-        strategy:'jwt'
+        strategy:'database'
     },
+    // pages:{
+    //     signIn:'/login',
+    //     signOut:'/register'
+    // },
     providers:[
         CredentialsProvider({
             credentials: {
@@ -19,7 +22,7 @@ const authoptions:NextAuthOptions =NextAuth({
                 const response= await sql`
                 SELECT * FROM users WHERE email=${credentials?.email}`;
                 const user= response.rows[0];
-                const correctPassword= await compare(credentials?.password,user.password);
+                const correctPassword= await compare(credentials?.password || '',user.password);
                 console.log(correctPassword)
                 if (correctPassword){
                     return{
@@ -31,7 +34,19 @@ const authoptions:NextAuthOptions =NextAuth({
               }
 
         })
-    ]
+    ],
+    callbacks: {
+        jwt({ token, user }) {
+          if(user) token.email = user.email
+          return token
+        },
+        session({ session, token }) {
+          session.user.email = token.email
+          return session
+        }
+      }
 })
-const handler=NextAuth(authoptions);
+
+const handler=NextAuth(OPTIONS);
+// const handler=NextAuth(authoptions);
 export {handler as GET, handler as POST};
