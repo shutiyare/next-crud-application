@@ -1,19 +1,22 @@
 'use client'
 import React,{FormEvent} from 'react'
 import './register.css'
-import { useRouter } from 'next/router'
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 function Form() {
     const  handleRegister=async (e:FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         const formdata=new FormData(e.currentTarget)
         const response= await fetch('/api/auth/register',{
             method:'POST',
+            headers: { "Content-Type": "application/json" },
             body:JSON.stringify({
                 email:formdata.get('email'),
                 password:formdata.get('password'),
             }),
-            
         });
+        // revalidatePath('/register')
+        // redirect('/dashboard')
         console.log({response})
       }
   return (

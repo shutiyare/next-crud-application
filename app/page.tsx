@@ -5,8 +5,9 @@ import Logout from "./logout";
 export default async function Page() {
   // const session=await getServerSession();
 
-  return <>
-  <h1>Welcome to home page</h1>
-
-  </>
+  return (
+    <>
+    <p>welcome to home page</p>
+    </>
+  )
 }
