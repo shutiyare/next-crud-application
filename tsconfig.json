@@ -29,7 +29,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "app/login/page.jsx"  ],
+, "app/login/page.tsx", "app/providers.js", "next.config.js"  ],
   "exclude": [
     "node_modules"
   ]

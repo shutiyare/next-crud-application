@@ -1,9 +1,6 @@
-import React from 'react'
+import React from 'react';
+import { Skeleton } from 'antd';
 
-function loading() {
-  return (
-    <div>loading</div>
-  )
-}
+const App: React.FC = () => <Skeleton avatar paragraph ={{ rows: 4 }} />;
 
-export default loading
+export default App;

@@ -3,21 +3,20 @@ import { sql } from "@vercel/postgres";
 import { message } from "antd";
 export  async function POST(request:Request){
     try {
-        const {email,name,age,phone,isActive,nationality,address}= await request.json();
+        const {first_name,last_name,date_of_birth ,gender,email,address,phone_number,enrolled_program,is_active}= await request.json();
         // validate data here
-        console.log({name:name})
+        console.log({email:email,date_of_birth:date_of_birth})
         // if(!email || !name || !age || !phone || !isActive || !nationality || !address) {
         //     throw new Error('fileds are required')
         // }
         const response= await sql`
-        INSERT INTO customers (name,age,phone,nationality,isActive,address,email)
-         VALUES (${name},${age},${phone},${nationality},${isActive},${address},${email}) RETURNING`;
+        INSERT INTO students (first_name,last_name,date_of_birth ,gender,email,address,phone_number,enrolled_program,is_active)
+         VALUES (${first_name},${last_name},${date_of_birth},${gender},${email},${address},${phone_number},${enrolled_program},${is_active}) `;
         console.log(response)
     } catch (error) {
         console.log(error)
     }
     return NextResponse.json({message:'success'})
-    // const users = await sql`SELECT * FROM customers;`;
-    // return NextResponse.json({ users }, { status: 200 });
+   
 }
 

@@ -11,7 +11,7 @@ interface MyComponentProps {
 
 const Dashboardcard:React.FC<MyComponentProps> =({icon,title,value,})=> {
     return (
-      <Card>
+      <Card style={{}}>
         <Space direction="horizontal">
           {icon}
           <Statistic title={title} value={value} />

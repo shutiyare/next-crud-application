@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import {
   DesktopOutlined,
   FileOutlined,
@@ -15,6 +15,7 @@ import styles from './dashboard.module.css'
 import Link from 'next/link';
 import Image from 'next/image';
 import ProfileMenu from './components/profile';
+import App from './loading';
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -37,7 +38,7 @@ function getItem(
 
 
 
-export default  function Llayout({children}:{children:React.ReactNode}) {
+export default  function layout({children}:{children:React.ReactNode}) {
   const router = useRouter();
   const pathname=usePathname();
   const [collapsed, setCollapsed] = useState(false);
@@ -67,16 +68,22 @@ export default  function Llayout({children}:{children:React.ReactNode}) {
       key: "/dashboard/customers",
       icon: <UserOutlined />,
     },
+    {
+      label: "Students",
+      key: "/dashboard/students",
+      icon: <UserOutlined />,
+    },
   ]
 
   const {
-    token: { colorBgContainer,colorBgBase,colorFillSecondary },
+    token: { colorBgContainer,colorBgBase,colorFillSecondary, },
   } = theme.useToken();
 
   return (
   <>
+  
   <Layout style={{ minHeight: '100vh' }} >
-      <Sider collapsible collapsed={collapsed} 
+      <Sider collapsible collapsed={collapsed} color={colorBgContainer} 
       onCollapse={(value) => setCollapsed(value)} className={styles.sider}>
         <div className="demo-logo-vertical" />
         {/* <Image src='' width={200} height={200} alt='image'/> */}
@@ -96,6 +103,7 @@ export default  function Llayout({children}:{children:React.ReactNode}) {
 
       </Sider>
       <Layout>
+
         <Affix offsetTop={1}>
           
         <Header  style={{ padding: '0 10px', background: colorBgBase ,marginLeft:" 10px" ,marginRight:"10px" }}
@@ -103,7 +111,7 @@ export default  function Llayout({children}:{children:React.ReactNode}) {
        >
         <Flex justify='space-between' align='flex-end'>
           <div>
-            <Typography.Title level={3} color='red'>Dashboard</Typography.Title>
+            <Typography.Title level={3} color='red'>Sample Dashboard project</Typography.Title>
           </div>
           <div>
             <ProfileMenu /> 
@@ -117,18 +125,21 @@ export default  function Llayout({children}:{children:React.ReactNode}) {
           
           <div style={{ padding: 24, minHeight: '80vh', background: colorBgContainer }}>
             
-      <Typography.Title level={3} className={styles.pathname}>
+      <Typography.Title level={3} className={styles.pathname} color='blue'>
       {pathname.split('/').pop()}
 
       </Typography.Title>
-
+      <Suspense fallback={<App />}>
 
             {children}
+      </Suspense>
+
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' ,fontSize:'1rem'}}>Kaamil Diagnostic center</Footer>
+        <Footer style={{ textAlign: 'center' ,fontSize:'1rem'}}>Sample Dashboard project</Footer>
       </Layout>
     </Layout>
+
   </>
   )
 }

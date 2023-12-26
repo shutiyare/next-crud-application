@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getOrders, getInventory, getUsers } from '../../app/lib/data';
+import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import { Space, Table, Typography, Card, Statistic, Avatar, Flex, Row, Col } from "antd";
 import {
   ShoppingCartOutlined,
@@ -10,27 +11,11 @@ import {
   UserOutlined,
   MoneyCollectOutlined,
 } from "@ant-design/icons";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { Bar } from "react-chartjs-2";
+
 import styles from './dashboard.module.css'
 import ProfileMenu from "./components/profile";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+
 
 function Dashboard() {
   const [revenue, setrevenue] = useState(0);
@@ -55,7 +40,7 @@ function Dashboard() {
   return (
     <div >
       <div  className={styles.statistics}>
-      <Row gutter={16}>
+      <Flex gap='30px' >
         <div>
 
           <Dashboardcard
@@ -91,7 +76,7 @@ function Dashboard() {
             }
             title="Revenue"
             value={revenue}
-            
+            num='$'
             // num="$"
 
           />
@@ -132,7 +117,7 @@ function Dashboard() {
             value={customers}
           />
         </div>
-        </Row>
+        </Flex>
       </div>
       <Typography.Title level={5}>Recent Orders</Typography.Title>
       <div className={styles.table}>
@@ -152,18 +137,21 @@ function Dashboard() {
 interface MyComponentProps {
   title: React.ReactNode,
   value:  number 
-  icon: React.ReactNode,
+  icon?: React.ReactNode,
   num?:string
 }
 
 const Dashboardcard: React.FC<MyComponentProps> = ({ icon, title, value,num }) => {
   return (
     
-    <Col span={14}>
-      <Card bordered={false}>
+    // <Col span={14} >
+    <Space direction="horizontal">
+
+      <Card bordered={true} style={{backgroundColor:'$f1f1f1'}} >
         <Space direction="horizontal">
     {icon}
         <Statistic
+        
           title={title}
           value={value}
           precision={2}
@@ -172,7 +160,7 @@ const Dashboardcard: React.FC<MyComponentProps> = ({ icon, title, value,num }) =
         />
         </Space>
       </Card>
-    </Col>
+    </Space>
     // <Card >
     //   <Space direction="horizontal">
     //     {icon}

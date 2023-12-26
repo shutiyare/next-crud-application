@@ -1,13 +1,15 @@
 'use client'
 import React,{FormEvent} from 'react'
 import './register.css'
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
-function Form() {
+import { message } from 'antd';
+function RegisterForm() {
+    const router= useRouter();
     const  handleRegister=async (e:FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         const formdata=new FormData(e.currentTarget)
-        const response= await fetch('/api/auth/register',{
+        const response= await fetch('/api/register',{
             method:'POST',
             headers: { "Content-Type": "application/json" },
             body:JSON.stringify({
@@ -17,6 +19,12 @@ function Form() {
         });
         // revalidatePath('/register')
         // redirect('/dashboard')
+        if(!response.ok && response.status !==200){
+            message.error('No user registered.')
+        }
+        message.success('user registered successfully')
+        router.refresh();
+        router.push('/login')
         console.log({response})
       }
   return (
@@ -35,4 +43,4 @@ function Form() {
   )
 }
 
-export default Form
+export default RegisterForm
