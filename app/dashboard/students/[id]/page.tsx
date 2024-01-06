@@ -31,13 +31,15 @@ type StudentList={
 
 } 
 async function getData(id:number) {
- return await `SELECT * FROM students WHERE student_id =${id};`;
+ const query= await sql`SELECT * FROM students WHERE student_id =${id};`;
+ return query.rows;
   // if (student.rows.length>1) {
   //     throw new Error('Failed to fetch data')
   // }
   // return student.rows;
 }
 async function UpdateUserPage ({params}:{params:StudentList}){
+  console.log(params.first_name)
   const router = useRouter();
   const [loading, setloading] = useState(false)
   const students = (await getData(params.student_id));
@@ -51,7 +53,7 @@ console.log(students)
     e.preventDefault();
     setloading(true)
     console.log(e);
-    const response = await fetch('/api/students', {
+    const response = await fetch(`/api/students`, {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(e),

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
 import { message } from "antd";
-export  async function POST(request:Request){
+export  async function POST(request:NextRequest){
     try {
         const {email,name,age,phone,isActive,nationality,address}= await request.json();
         // validate data here
@@ -11,13 +11,18 @@ export  async function POST(request:Request){
         // }
         const response= await sql`
         INSERT INTO customers (name,age,phone,nationality,isActive,address,email)
-         VALUES (${name},${age},${phone},${nationality},${isActive},${address},${email}) RETURNING`;
+         VALUES (${name},${age},${phone},${nationality},${isActive},${address},${email})`;
         console.log(response)
     } catch (error) {
         console.log(error)
     }
     return NextResponse.json({message:'success'})
-    // const users = await sql`SELECT * FROM customers;`;
-    // return NextResponse.json({ users }, { status: 200 });
+    
 }
 
+export  async function GET(request:NextRequest){
+    const query= await sql`SELECT * FROM customers; `;
+    const customers= query.rows
+    return NextResponse.json({customers})
+
+}

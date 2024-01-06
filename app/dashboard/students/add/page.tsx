@@ -20,9 +20,10 @@ const AddUserPage = () => {
     console.log('Failed:', errorInfo);}
   const router = useRouter();
   const [loading, setloading] = useState(false)
+
   const registerStudents = async (e: any) => {
     // e.preventDefault();
-    // setloading(true)
+    setloading(true)
     // const formdata = new FormData(e.currentTarget)
     console.log(e);
     const response = await fetch('/api/students', {
@@ -33,82 +34,12 @@ const AddUserPage = () => {
     if (response.ok && response.status == 200) {
       setloading(false)
       message.success(`Student successfully registered`);
-      router.refresh();
       router.push('/dashboard/students');
+      router.refresh();
     }else{
       message.error('student not registered');
     }
-    console.log({response});
   }
-    
-  
-
-  //   const response = await fetch('/api/students', {
-
-  //     method: 'POST',
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify({
-  //       first_name: formdata.get('first_name'),
-  //       last_name: formdata.get('last_name'),
-  //       email: formdata.get('email'),
-  //       phone_number: formdata.get('phone_number'),
-  //       address: formdata.get('address'),
-  //       enrolled_program: formdata.get('enrolled_program'),
-  //       gender: formdata.get('gender'),
-  //       is_active: formdata.get('is_active'),
-  //       date_of_birth: formdata.get('date_of_birth'),
-
-  //     }),
-  //     // next:{revalidate:1}
-  //   });
-  //   console.log({ response })
-
-  //   if (!response.ok && response.status!==200) {
-  //     message.error('error occured');
-  //   console.log('error occured')
-  // } else{
-  // setloading(false)
-  // message.success(`Student successfully registered`);
-  // router.refresh();
-  // router.push('/dashboard/students');
-  //   // redirect('/dashboard')
-  // }
-
-
-  const onFinish =async (e: FormEvent<HTMLFormElement>) => {
-    console.log('Received values of form: ', e);
-    setloading(true)
-    const formdata = new FormData(e.currentTarget)
-
-    const response = await fetch('/api/students', {
-
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        first_name: formdata.get('first_name'),
-        last_name: formdata.get('last_name'),
-        email: formdata.get('email'),
-        phone_number: formdata.get('phone_number'),
-        address: formdata.get('address'),
-        enrolled_program: formdata.get('enrolled_program'),
-        gender: formdata.get('gender'),
-        is_active: formdata.get('is_active'),
-        date_of_birth: formdata.get('date_of_birth'),
-
-      }),
-      // next:{revalidate:1}
-    });
-    if (!response.ok && response.status!==200) {
-      message.error('error occured');
-    console.log('error occured')
-  }
-  setloading(false)
-  message.success(`Student successfully registered`);
-  router.refresh();
-  router.push('/dashboard/students');
-    // redirect('/dashboard')
-    console.log({ response })
-  };
   return (
     <div className={styles.container}>
       <Form
@@ -122,6 +53,7 @@ const AddUserPage = () => {
         <Form.Item
           className={styles.in}
           name="first_name"
+          // initialValue={}
 
           rules={[{ required: true, message: 'Please input your firstName!', }]}
         >

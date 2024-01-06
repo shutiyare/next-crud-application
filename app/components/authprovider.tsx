@@ -13,9 +13,8 @@ function Authprovider({children}:{children:React.ReactNode}) {
     }
     }, [status]);
     if(status == 'loading'){
-        return <Spin />
+        return <Spin size='large' fullscreen spinning/>
     }
-
   return (
     <>
     {children}

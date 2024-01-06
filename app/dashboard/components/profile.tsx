@@ -59,13 +59,16 @@ const ProfileMenu = () => {
   const link='https://img.freepik.com/premium-photo/boss-man-looking-camera-smiling-young-businessman-banker-with-beard-photo-with-close-up-portrait_321831-5908.jpg'
 const {data:session,status} = useSession();
   return (
+    <>
     <Popover content={menu} trigger='click' color='#fff' title='Profile Details'>
        <Flex justify='space-between' align='center'>
 
-        <Avatar icon={<UserOutlined />}  /> 
+        <Avatar icon={<UserOutlined />} src={session?.user?.image}  /> 
         {session?.user?.email}
        </Flex>
     </Popover>
+    </>
+
   );
 };
 

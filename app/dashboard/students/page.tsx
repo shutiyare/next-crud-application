@@ -5,14 +5,37 @@ import Link from 'next/link'
 import Search from 'antd/es/input/Search'
 import { Button, Flex, Modal, Space, Table, message } from 'antd'
 import { DeleteStudent, fetchStudents } from '../../lib/data'
-import ActionButtons from '../components/actionButtons'
-import { sql } from '@vercel/postgres'
-import { it } from 'node:test'
+import ActionButtons from './_components/actionButtons'
+import {  sql, type QueryResultRow } from '@vercel/postgres'
+export interface StudentsI {
+  student_id: number,
+  first_name: string,
+  age: number,
+  last_name: string,
+  gender: string,
+  is_active: boolean,
+  address: string,
+  email: string,
+  enrolled_program: string,
+  date_of_birth: number,
+  phone_number:string,
+  created_at:number
+}
+async function getData() {
+  const res = await fetch('http://localhost:3000/api/students',{cache:'no-store'})
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+
+  return res.json()
+}
 async function StudentsPage() {
+  const res = await fetch('http://localhost:3000/api/students', { cache: 'no-cache' });
+    const StudentList: StudentsI[] = await res.json();
   const students = await fetchStudents();
-  // const dID= await DeleteStudent()
   const DeleteItem = async (id:number) => {
-    const req= await sql`DELETE FROM students WHERE id=${id};`;
+    const req= await sql`DELETE FROM students WHERE student_id=${id};`;
     // return req.rows;
     console.log(`deleted ${id}`);
 }
@@ -67,15 +90,8 @@ async function StudentsPage() {
               <td>
                 {/* <ActionButtons DeleteItem={DeleteItem} /> */}
               <Flex gap="medium" wrap="wrap" justify='space-between'>
-                <Button type="text" style={{ color: 'blue' }} href={`/dashboard/students/${student.student_id}`} >Update </Button>
-                <Button type="text" style={{ color: 'red' }} onClick={
-                  async ()=>{
-                    'use server'
-                    const item =await sql`DELETE FROM students WHERE student_id=${student.student_id};`;
-                    message.success(`${student.first_name} have delete succcessfully`)
-                  }
-                }>
-                    Delete</Button>
+                {/* <Button type="text" style={{ color: 'blue' }} href={`/dashboard/students/${student.student_id}`} >Update </Button> */}
+                <ActionButtons student={student} />
             </Flex>
               </td>
 

@@ -12,7 +12,10 @@ import Link from 'next/link'
         try {
             e.preventDefault();
             const formdata=new FormData(e.currentTarget)
-
+            // if(formdata.values.length ===0){
+            //     seterror('no values');
+            //     return
+            // }
         const response=await signIn('credentials',{
             email:formdata.get('email'),
             password:formdata.get('password'),

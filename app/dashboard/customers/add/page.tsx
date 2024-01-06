@@ -1,47 +1,39 @@
-
 'use client'
-import { FormEvent,useState } from "react";
+import { FormEvent, useState } from "react";
 import styles from "./adduser.module.css";
 import { useRouter, } from "next/navigation";
 import { Spin, message } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
-
 const AddUserPage = () => {
-  const router= useRouter();
+  const router = useRouter();
   const [loading, setloading] = useState(false)
-  const  registerCustomers=async (e:FormEvent<HTMLFormElement>)=>{
+  const registerCustomers = async (e: FormEvent<HTMLFormElement>) => {
     setloading(true)
     e.preventDefault();
-    const formdata=new FormData(e.currentTarget)
-
-    const response= await fetch('/api/customers',{
-      
-        method:'POST',
-        headers: { "Content-Type": "application/json" },
-        body:JSON.stringify({
-            name:formdata.get('name'),
-            email:formdata.get('email'),
-            phone:formdata.get('phone'),
-            isActive:formdata.get('isActive'),
-            address:formdata.get('address'),
-            age:formdata.get('age'),
-            nationality:formdata.get('nationality')
-        }),
+    const formdata = new FormData(e.currentTarget)
+    const response = await fetch('/api/customers', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: formdata.get('name'),
+        email: formdata.get('email'),
+        phone: formdata.get('phone'),
+        isActive: formdata.get('isActive'),
+        address: formdata.get('address'),
+        age: formdata.get('age'),
+        nationality: formdata.get('nationality')
+      }),
     });
-    console.log({response})
-    if(!response.ok && response.status !== 200){
-    message.error('no data set into the database')
-  }
-  else{
-
-  setloading(false)
-    message.success(`user successfully registered`);
-    router.refresh();
-    router.push('/dashboard/customers');
-  }
-
-    // redirect('/dashboard')
-
+    console.log({ response })
+    if (!response.ok && response.status !== 200) {
+      message.error('no data set into the database')
+    }
+    else {
+      setloading(false)
+      message.success(`customer successfully registered`);
+      router.push('/dashboard/customers');
+      router.refresh();
+    }
   }
   return (
     <div className={styles.container}>
@@ -72,7 +64,7 @@ const AddUserPage = () => {
         ></textarea>
 
         <button type="submit">
-          {loading && <Spin spinning indicator={<LoadingOutlined  style={{fontSize:30}}/>} size="large"/>}
+          {loading && <Spin spinning indicator={<LoadingOutlined style={{ fontSize: 30 }} />} size="large" />}
           Submit</button>
       </form>
     </div>

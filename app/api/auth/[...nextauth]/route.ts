@@ -40,6 +40,9 @@ import CredentialsProvider  from "next-auth/providers/credentials";
                 return {
                   id:user.id,
                   email:user.email,
+                  image:user.avatar,
+                  name:user.username,
+
               }
               } catch (error) {
                 console.log(error)

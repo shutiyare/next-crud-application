@@ -1,19 +1,18 @@
 // 'use server'
 import { sql } from "@vercel/postgres";
 export async function fetchCustomers(){
-const users= await sql`SELECT * FROM customers;`;
+const users= await sql`SELECT * FROM customers; `;
 // console.log(users.rows)
 return users.rows;
 }
 export async function fetchStudents(){
-  const students= await sql`SELECT * FROM students LIMIT 20;`;
-  console.log('students in calll method are :',students.rowCount);
-
-  return students.rows;
+const users= await sql`SELECT * FROM  students`;
+  // const students= await fetch('http://localhost:3000/api/students',{cache:'no-store'})
+  // console.log('students in calll method are :',students.rowCount);
+  return  users.rows;
   }
   export async function fetchSingleStudent(id:number){
    return await sql`SELECT * FROM students WHERE student_id =${id} LIMIT 1;`;
-    
     }
  export async function DeleteStudent (id) {
   const req= await sql`DELETE FROM students WHERE id=${id};`;
