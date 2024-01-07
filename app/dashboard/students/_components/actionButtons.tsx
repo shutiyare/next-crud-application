@@ -8,12 +8,12 @@ import DeleteStudent from './DeleteStudent'
 interface IProps {
     student?: StudentsI
 }
-function ActionButtons({student}:{student:StudentsI}) {
+function ActionButtons({student}:{student:IProps}) {
     return (
         <div>
             <Flex gap="medium" wrap="wrap" justify='space-between'>
-                <Button type="text" style={{ color: 'blue' }} href={`/dashboard/students/${student.student_id}`} >Update </Button>
-                <DeleteStudent studentId ={student.student_id} />
+                <Button type="text" style={{ color: 'blue' }} href={`/dashboard/students/${student.student.student_id}`} >Update </Button>
+                <DeleteStudent studentId ={student.student.student_id} />
             </Flex>
         </div>
     )
