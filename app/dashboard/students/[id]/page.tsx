@@ -39,12 +39,12 @@ async function getData(id:number) {
   // return student.rows;
 }
 async function UpdateUserPage ({params}:{params:StudentList}){
-  console.log(params.first_name)
+  console.log(params.first_name);
   const router = useRouter();
   const [loading, setloading] = useState(false)
-  const students = (await getData(params.student_id));
+  // const students = (await getData(params.student_id));
   // const students= await fetchSingleStudent(params.student_id);
-console.log(students)
+console.log(params.first_name)
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   }
@@ -70,9 +70,6 @@ console.log(students)
   }
   return (
     <div className={styles.container}>
-      
-          
-        
       <Form
         name="normal_login"
         className={`${styles.form} login-form`}
@@ -84,7 +81,7 @@ console.log(students)
         <Form.Item
           className={styles.in}
           name="first_name"
-
+          // initialValue={params.first_name}
           rules={[{ required: true, message: 'Please input your firstName!', }]}
         >
           <Input

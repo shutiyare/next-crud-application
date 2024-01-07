@@ -1,10 +1,10 @@
 import { sql } from "@vercel/postgres";
 import { compare } from "bcrypt";
-import type { NextAuthOptions } from "next-auth";
+import  { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider  from "next-auth/providers/credentials";
 
- export const OPTIONS:NextAuthOptions ={
+  const OPTIONS:NextAuthOptions ={
   session: {
     strategy: "jwt",
   },
@@ -40,7 +40,8 @@ import CredentialsProvider  from "next-auth/providers/credentials";
                 return {
                   id:user.id,
                   email:user.email,
-                  image:user.avatar,
+                  image:user.image,
+                  iavamage:user.avatar,
                   name:user.username,
 
               }
