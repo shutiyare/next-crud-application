@@ -9,12 +9,12 @@ import DeleteCustomer from './Deletecustomer'
 interface IProps {
     customer?: CustomersI
 }
-function CustomerActions({customer}:{customer:CustomersI}) {
+function CustomerActions({customer}:{customer:IProps}) {
     return (
         <div>
             <Flex gap="medium" wrap="wrap" justify='space-between'>
-                <Button type="text" style={{ color: 'blue' }} href={`/dashboard/customers/${customer.customer_id}`} >Update </Button>
-                <DeleteCustomer customerId ={customer.customer_id} />
+                <Button type="text" style={{ color: 'blue' }} href={`/dashboard/customers/${customer.customer.customer_id}`} >Update </Button>
+                <DeleteCustomer customerId ={customer.customer.customer_id} />
             </Flex>
         </div>
     )
